@@ -1,24 +1,17 @@
 setTimeout(() => {
     console.log("Hello!");
 
-    const tomate = document.querySelector("h1");
-    const html = document.querySelector("html");
-    const head = document.querySelector("head")
-    const initialStyle = document.querySelector("")
+    // const h1 = document.querySelector("h1")
+    // h1.setAttribute("style", "color:pink");
 
-    const newStyle = document.createElement("style")
-    newStyle.setAttribute("id", "onetrust-style")
-    newStyle.append("#onetrust-reject-all-handler:{color:pink}")
-
-    head.append(newStyle)
-
-    tomate.classList.add("cookiesAway");
+    const rejectAll = document.querySelector("#onetrust-reject-all-handler");
+    rejectAll.setAttribute("style", "color:pink !important; font-size:50px !important;background-color:black !important")
 
     // if (html.innerHTML.includes("onetrust")) {
     //     console.log("inside")
 
-    //     let onetrust = document.querySelector("#onetrust-style")
-    //     onetrust.append("#onetrust-reject-all-handler:{color:pink}")
+    // let onetrust = document.querySelector("#onetrust-style")
+    // onetrust.append("#onetrust-reject-all-handler:{color:pink !important}")
 
     // }
 }
