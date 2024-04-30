@@ -1,5 +1,5 @@
 console.log("Hello!");
-// "matches": [
-    //"https://*.carrefour.fr/*"
-    //"<all_urls>"
-//]
+
+chrome.tabs.insertCSS({
+    code: 'button { background-color: red; color: white; border-radius: 5px; }'
+});

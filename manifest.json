@@ -9,7 +9,7 @@
                 "contentScript.js"
             ],
             "matches": [
-                "https://*.carrefour.fr/*"
+                "https://*carrefour.fr/*"
             ],
             "css": [
                 "cookieStyle.css"
