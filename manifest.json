@@ -10,6 +10,9 @@
             ],
             "matches": [
                 "https://*.carrefour.fr/*"
+            ],
+            "css": [
+                "cookieStyle.css"
             ]
         }
     ]
