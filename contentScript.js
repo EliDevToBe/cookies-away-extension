@@ -7,4 +7,4 @@ setTimeout(() => {
 }
     , 2000);
 
-    nimp
+    
