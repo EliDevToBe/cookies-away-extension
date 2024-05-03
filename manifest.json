@@ -3,6 +3,10 @@
     "name": "CookiesAway",
     "description": "modifie l'apparence des cookies Dark Patterns",
     "version": "1.0",
+    "action" : {
+        "default_popup" : "popUp.html"
+
+    },
     "content_scripts": [
         {
             "js": [
