@@ -5,8 +5,9 @@ function cookiesAway(selector) {
 }
 //----------------------------------------------------------------------------------
 
-window.onload = function () {
-    setTimeout(() => {
+window.onload = function () {//Attend que la page soit chargée pour déclencher le script
+    setTimeout(() => {//Retarde l'execution du code 
+        //On attribue une variable pour chaque élément à pointer
         let oneTrustId = document.getElementById("onetrust-reject-all-handler");
         let oneTrustClass = document.querySelector(".onetrust-reject-all-handler");
         let oneTrustClass2 = document.querySelector(".onetrust-close-btn-handler");
@@ -17,7 +18,7 @@ window.onload = function () {
 
         for (let i = 0; i < arraySelector.length; i++) {
             const element = arraySelector[i];
-            try { // Ici on essaie tout ce qu'on veut faire fonctionner. Si erreur, alors on bascule dans catch(error) sans stopper tout le code.
+            try { // Instruction: Ici on essaie tout ce qu'on veut faire fonctionner. Si erreur, alors on bascule dans catch(error) sans stopper tout le code.
                 cookiesAway(element);
 
             } catch (error) {
@@ -31,5 +32,5 @@ window.onload = function () {
             }
 
         }
-    }, 500);
+    }, 500);// delay (en millisecondes)
 }
