@@ -34,3 +34,14 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
         }
     }, 500);// delay (en millisecondes)
 }
+
+chrome.runtime.onMessage.addListener(
+    console.log("onMessage event has been fired ! ")
+)
+chrome.runtime.onMessage.addListener((message, sender) => {
+    console.log("event detection 2")
+
+    if (message = "lolilol") {
+        console.log(`${message} received 5/5 !`)
+    }
+})
