@@ -1,17 +1,25 @@
 // Récupérer les interactions utilisateur avec addEventListener
 
 const btn = document.querySelector("#sendmessageid");
-btn.addEventListener("click", () => {
-    // tabID().then((tab) => {
-    //     console.log(tab)
-    // })
-    console.log("Bouton popup clicked")
-    messageToContentScript("lolilol");
 
+btn.addEventListener("click", async () => {
+    console.log("Bouton popup clicked")
+
+    let style = btn.attributes.style.nodeValue;
+
+    messageToContentScript({
+        type: "style",
+        content: style + "font-size:50px !important;"
+    });
+
+    // infos about the current tab
+    // let infosTab = await getCurrentTab();
+    // messageToContentScript(infosTab);
 })
 
+// Taken from API doc
 async function getCurrentTab() {
-    let queryOptions = { active: true, lastFocusedWindow: true };
+    let queryOptions = { active: true, currentWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab;
