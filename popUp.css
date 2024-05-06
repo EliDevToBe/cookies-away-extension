@@ -4,6 +4,7 @@
 
 body {
     float: left;
+    position: flex;
     margin-right: 10px;
     width: 400px;
     height: 400px;
@@ -46,7 +47,23 @@ button {
 
 /* Styles prédéfinis */
 
-#access1 {}
+.access1 {
+    background-color: rgb(44, 5, 82);
+    font-size: 20px;
+    color: yellow;
+    font-style: italic;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding: 10px;
+}
+
+.access2 {
+    background-color: rgb(206, 20, 20);
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    font-style: italic;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 10px;
+}
 
 /* input type Color */
 h2,
@@ -72,6 +89,7 @@ input {
 
 #app-cover {
     display: table;
+
     width: 600px;
     margin: 80px auto;
     counter-reset: button-counter;
