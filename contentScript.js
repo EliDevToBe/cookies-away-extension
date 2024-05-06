@@ -30,9 +30,7 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
 
                     alert("Ce site te prend en otage !!!")
                 }
-
             }
-
         }
     }, 500);// delay (en millisecondes)
 }
