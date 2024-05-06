@@ -10,10 +10,51 @@
 
 <body>
     <main>
-        <h1>Cookies Away</h1>
-        <h2>Choisis un thème</h2>
-        <button id="sendmessageid"
-            style="color: white !important; background-color: #336dab !important;">Display</button>
+        <h1 class="popUp">Cookies Away!</h1> <!-- rajouter icône -->
+        <h1 class="info">Avant de cliquer sur le bouton "Accepter", lisez ceci:</h1>
+        <!-- icône flèche du bas + fonction OVER "Voir plus" -->
+        <p class="paragraph">Nous vous informons que ce site vous impose d'accepter ses cookies.
+            Cela signifie potentiellement que vous devrez confier vos données à tous leurs partenaires.
+            Parfois, vous serez contraints de vous abonner pour continuer à accéder à leurs informations.
+            Par bienveillance, nous souhaitions vous alerter afin que vous puissiez vous demander par vous-mêmes si,
+            oui ou non, vous consentiez à accepter cette situation.
+            Sachez que vous n'êtes pas obligés. Pour faciliter votre décision, nous vous encourageons à personnaliser
+            vos boutons
+            "Refuser" ou "Continuer sans accepter" ci-dessous:
+        </p>
+        <h1 class="personalisation">Choisissez vos préférences</h1> <!-- rajouter icône -->
+        <h2 class="access1">Styles prédéfinis n°1</h2>
+        <h2 class="access1">Styles prédéfinis n°2</h2>
+        <div>
+            <input type="color" id="head" name="head" value="#CBD71D" />
+            <label for="head">Couleur du texte</label>
+        </div>
+
+        <div>
+            <input type="color" id="body" name="body" value="#E147A1" />
+            <label for="body">Fond de texte</label>
+        </div>
+        <div>
+            <input type="range" id="body" name="body" value="" />
+            <label for="body">Taille du texte</label><!-- FAUX : TROUVER COMMENT FAIRE L'INPUT SIZE -->
+        </div>
+        <h1 class="access">Accessibilité</h1> <!-- rajouter icône -->
+        <h2 class="access1">Constraste</h2>
+        <div id="app-cover">
+            <div class="row">
+                <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <div class="button r" id="button-1">
+                            <input type="checkbox" class="checkbox" />
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <div class="button r"></div>
+
     </main>
     <script src="popUp.js"></script>
 </body>
