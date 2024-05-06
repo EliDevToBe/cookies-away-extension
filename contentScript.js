@@ -1,7 +1,9 @@
 console.log("Hello!");
 
 function cookiesAway(selector) {
-    selector.setAttribute("style", "color:pink !important; font-size:50px !important;background-color:black !important")
+    selector.setAttribute("style", "color:pink !important; font-size:50px !important;background-color:black !important");
+    selector.setAttribute("type", "button");
+    selector.setAttribute("title", "Cliquez pour refuser tous les cookies")
 }
 //----------------------------------------------------------------------------------
 
