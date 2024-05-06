@@ -1,9 +1,7 @@
 console.log("Hello!");
 
 function cookiesAway(selector) {
-    selector.setAttribute("style", "color:pink !important; font-size:50px !important;background-color:black !important");
-    selector.setAttribute("type", "button");
-    selector.setAttribute("title", "Cliquez pour refuser tous les cookies")
+    selector.setAttribute("style", "color:pink !important; font-size:50px !important;background-color:black !important")
 }
 //----------------------------------------------------------------------------------
 
@@ -55,22 +53,3 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
     }, 500);// delay (en millisecondes)
 
 }
-
-// Detects any event
-// chrome.runtime.onMessage.addListener(
-//     console.log("onMessage event has been fired ! ")
-// )
-
-// Detect a specific event message
-chrome.runtime.onMessage.addListener((message, sender) => {
-    console.log("event detection on ContentScript");
-
-    if (message.type == "style") {
-        console.log(`Received - - --> ${message.content}`);
-
-        let oneTrustId = document.getElementById("onetrust-reject-all-handler");
-        oneTrustId.attributes.style.nodeValue = message.content
-        oneTrustId.innerText = "Cookies AWAY!"
-    }
-    // console.log(message)
-})

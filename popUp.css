@@ -184,3 +184,19 @@ input {
 #button-1 .layer {
     transition: 0.3s ease all;
 }
+
+h3:hover {
+    background-color: #03a9f4;
+}
+
+.hidden-text {
+    /*visibility: hidden;*/
+    display: none;
+    transition: all ease-in-out 1s;
+}
+
+.info:hover+.hidden-text {
+    visibility: visible;
+    display: contents;
+    transition: all ease-in-out 1s;
+}
