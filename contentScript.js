@@ -1,13 +1,14 @@
 console.log("Hello!");
+const defaultStyle = "color:pink !important; font-size:50px !important;background-color:black !important";
 
-function cookiesAway(selector) {
-    selector.setAttribute("style", "color:pink !important; font-size:50px !important;background-color:black !important");
+function cookiesAway(selector, style = defaultStyle) {
+    selector.setAttribute("style", style);
     selector.setAttribute("type", "button");
     selector.setAttribute("title", "Cliquez pour refuser tous les cookies")
 }
 //----------------------------------------------------------------------------------
 
-const findSelector = () => {
+const findSelector = (newStylePassing) => {
 
     let oneTrustId = document.getElementById("onetrust-reject-all-handler");
     let oneTrustClass = document.querySelector(".onetrust-reject-all-handler");
@@ -22,7 +23,7 @@ const findSelector = () => {
         const element = arraySelector[i];
 
         try { // Instruction: Ici on essaie tout ce qu'on veut faire fonctionner. Si erreur, alors on bascule dans catch(error) sans stopper tout le code.
-            cookiesAway(element);
+            cookiesAway(element, newStylePassing);
 
         } catch (error) {
 
@@ -35,11 +36,11 @@ const findSelector = () => {
 
 const openPopup = () => {
 
-    let paywallFinder = document.querySelector("body").innerHTML.includes("paywall")
+    let paywallFinder = document.querySelector("body").innerHTML.includes("paywall");
 
     if (paywallFinder) {
 
-        alert("Attention, ceci est un faux choix, tu devras accepter les cookies, ou payer !")
+        alert("Attention, ceci est un faux choix, tu devras accepter les cookies, ou payer !");
 
     }
 
@@ -56,6 +57,10 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
 
 }
 
+function updatePage(newStyle) {
+    findSelector(newStyle);
+}
+
 // Detects any event
 // chrome.runtime.onMessage.addListener(
 //     console.log("onMessage event has been fired ! ")
@@ -68,9 +73,11 @@ chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type == "style") {
         console.log(`Received - - --> ${message.content}`);
 
-        let oneTrustId = document.getElementById("onetrust-reject-all-handler");
-        oneTrustId.attributes.style.nodeValue = message.content
-        oneTrustId.innerText = "Cookies AWAY!"
+        updatePage(message.content);
+
+    }
+    if (message.type == "input") {
+        console.log("custom text")
     }
     // console.log(message)
 })
