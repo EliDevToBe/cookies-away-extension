@@ -12,7 +12,7 @@ btn.addEventListener("click", async () => {
         content: colorAccessibility
     });
 
-    // infos about the current tab
+    // infos about the current tab 
     // let infosTab = await getCurrentTab();
     // messageToContentScript(infosTab);
 })
