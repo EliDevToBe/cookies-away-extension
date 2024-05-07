@@ -93,7 +93,8 @@ function getCustomStyle() {
     let textStyle = `color:${customText.value} !important;`
     let background = `background-color:${customBackground.value} !important;`
     let size = `font-size:${parseInt(customSize.value)}px !important;`
-    let finalStyle = textStyle + background + size + "border-radius: 100px !important;"
+    let outline = `border: 3px solid ${customText.value} !important;`;
+    let finalStyle = textStyle + background + size + outline + "border-radius: 100px !important;"
 
     // == Objet pour le stocker dans le Storage.local
     let cookiesAway = { cookiesAwayUserStyle: finalStyle }
@@ -142,7 +143,7 @@ async function setInitialState() {
 
         console.log(nearFontSize)
     } else {
-        customText.value = "#FFc0cb";
+        customText.value = "#FF6BE4";
         customBackground.value = "#000000";
     }
 }
