@@ -1,5 +1,6 @@
 console.log("Hello!");
 const defaultStyle = "color:pink !important; font-size:50px !important;background-color:black !important;border-radius: 100px !important;";
+// chrome.storage.local.clear(); // <-- - - EASY ERASE STORAGE
 
 function cookiesAway(selector, style = defaultStyle) {
     selector.setAttribute("style", style);
@@ -53,19 +54,26 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
 
     setTimeout(async () => {//Retarde l'execution du code 
         // Save le storage-local
-        let localStyle = await chrome.storage.local.get()
-        let existingLocalStyle = await localStyle.cookiesAway
+        let localData = await chrome.storage.local.get()
+        let existingLocalStyle = await localData.cookiesAwayUserStyle
+        let existingLocalText = await localData.cookiesAwayUserText
 
         // Ici nous permettra de verifier la présence d'un style local
         // == S'il existe, applique cookiesAway avec le Style du user
         // == Sinon, applique cookiesAway avec le style par défaut
         if (existingLocalStyle) {
-            findSelector(cookiesAway, existingLocalStyle.userStyle)
+            findSelector(cookiesAway, existingLocalStyle)
         } else {
             findSelector(cookiesAway);
         }
+        if (existingLocalText) {
+            findSelector(updateInnerText, existingLocalText)
+        }
         openPopup();
-        // messageToPopupScript(defaultStyle) // envoie mais n'arrive pas à réceptionner
+
+        // ==== Debugger call
+        chrome.storage.local.get().then((data) => console.log(data));
+
     }, 600);// delay (en millisecondes)
 
 }

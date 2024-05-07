@@ -97,7 +97,7 @@ function getCustomStyle() {
     let finalStyle = textStyle + background + size + "border-radius: 100px !important;"
 
     // == Objet pour le stocker dans le Storage.local
-    let cookiesAway = { cookiesAway: { userStyle: finalStyle } }
+    let cookiesAway = { cookiesAwayUserStyle: finalStyle }
 
     // Sauvegarde dans le storage local
     chrome.storage.local.set(cookiesAway);
@@ -109,6 +109,10 @@ function getCustomStyle() {
 // ==== Allows us to take user input from input-box
 function getCustomInput() {
     let input = customInput.value.trim();
+
+    // == Objet pour le stockage du texte custom
+    let inputToStore = { cookiesAwayUserText: input }
+    chrome.storage.local.set(inputToStore);
 
     return { type: "input", content: input }
 }
