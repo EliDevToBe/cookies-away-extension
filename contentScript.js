@@ -1,5 +1,5 @@
 console.log("Hello!");
-const defaultStyle = "color:pink !important; font-size:50px !important;background-color:black !important;border-radius: 100px !important;";
+const defaultStyle = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;";
 // chrome.storage.local.clear(); // <-- - - EASY ERASE STORAGE
 
 function cookiesAway(selector, style = defaultStyle) {
