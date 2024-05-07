@@ -17,7 +17,7 @@ btnCustom1.addEventListener("click", async () => {
 
     let btnStyle = btnCustom1.attributes.style.nodeValue + size;
     customText.value = "#FFFFFF";
-    customBackground.value = "#000000";
+    customBackground.value = "#39a3e4";
 
     messageToContentScript({
         type: "style",
@@ -31,7 +31,7 @@ btnCustom2.addEventListener("click", async () => {
 
 
     let btnStyle = btnCustom2.attributes.style.nodeValue + size;
-    customText.value = "#000000";
+    customText.value = "#39a3e4";
     customBackground.value = "#FFFFFF";
 
     messageToContentScript({
