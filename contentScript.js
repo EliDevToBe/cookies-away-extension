@@ -51,12 +51,21 @@ const openPopup = () => {
 
 window.onload = function () {//Attend que la page soit chargée pour déclencher le script
 
-    setTimeout(() => {//Retarde l'execution du code 
-        //On attribue une variable pour chaque élément à pointer
-        findSelector(cookiesAway);
-        openPopup();
-        messageToPopupScript(defaultStyle)
+    setTimeout(async () => {//Retarde l'execution du code 
+        // Save le storage-local
+        let localStyle = await chrome.storage.local.get()
+        let existingLocalStyle = await localStyle.cookiesAway
 
+        // Ici nous permettra de verifier la présence d'un style local
+        // == S'il existe, applique cookiesAway avec le Style du user
+        // == Sinon, applique cookiesAway avec le style par défaut
+        if (existingLocalStyle) {
+            findSelector(cookiesAway, existingLocalStyle.userStyle)
+        } else {
+            findSelector(cookiesAway);
+        }
+        openPopup();
+        // messageToPopupScript(defaultStyle) // envoie mais n'arrive pas à réceptionner
     }, 600);// delay (en millisecondes)
 
 }
@@ -84,6 +93,8 @@ chrome.runtime.onMessage.addListener((message, sender) => {
     // console.log(message)
 })
 
+// ==== Fonction message pour le popup, s'envoie mais n'arrive pas
+// == à le récupérer de l'autre côté
 async function messageToPopupScript(content) {
     let message = {
         type: "contentUpdate",
@@ -94,6 +105,7 @@ async function messageToPopupScript(content) {
     console.log("message sent to popup")
 }
 
+// ==== Fonction pour modifier le contenu d'un selecteur
 function updateInnerText(selector, text) {
     selector.innerText = text
 }

@@ -6,7 +6,7 @@ const customBackground = document.querySelector("#customBackground");
 const customSize = document.querySelector("#customSize");
 const customInput = document.querySelector("#customInput");
 
-let colorAccessibility = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 30px !important;border-radius: 25px !important;"
+let colorAccessibility = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;"
 customText.value = "#FFc0cb";
 customBackground.value = "#000000";
 
@@ -64,9 +64,8 @@ customSize.addEventListener("input", async () => {
 customInput.addEventListener("input", async (event) => {
     event.preventDefault();
 
-    let customText = customInput.value.trim();
-    let customTextMessage = { type: "input", content: customText }
-    messageToContentScript(customTextMessage);
+    let textFromUserInput = getCustomInput();
+    messageToContentScript(textFromUserInput);
 })
 // ========================= END EVENTS ====================
 
@@ -96,13 +95,20 @@ function getCustomStyle() {
     let background = `background-color:${customBackground.value} !important;`
     let size = `font-size:${parseInt(customSize.value)}px !important;`
     let finalStyle = textStyle + background + size + "border-radius: 100px !important;"
-    //+ `width:${parseInt(customSize.value * 5)}px;height:${parseInt(customSize.value) * 2}px`
+
+    // == Objet pour le stocker dans le Storage.local
+    let cookiesAway = { cookiesAway: { userStyle: finalStyle } }
+
+    // Sauvegarde dans le storage local
+    chrome.storage.local.set(cookiesAway);
+    // chrome.storage.local.get().then((data) => console.log(data))
 
     return { type: "style", content: finalStyle }
 }
 
+// ==== Allows us to take user input from input-box
 function getCustomInput() {
-    let input = customInput.value;
+    let input = customInput.value.trim();
 
     return { type: "input", content: input }
 }
