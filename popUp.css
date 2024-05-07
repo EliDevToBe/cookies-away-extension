@@ -218,3 +218,21 @@ input {
 #button-1 .layer {
     transition: 0.3s ease all;
 }
+
+/* Le saviez-vous ?*/
+
+h3:hover {
+    background-color: #ebf7fc;
+}
+
+.hidden-text {
+    /*visibility: hidden;*/
+    display: none;
+    /*transition: all ease-in-out 2s;*/
+}
+
+.info:hover+.hidden-text {
+    visibility: visible;
+    display: contents;
+    /*transition: all ease-in-out 2s;*/
+}
