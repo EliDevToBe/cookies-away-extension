@@ -55,25 +55,25 @@ button {
 /* Styles prédéfinis */
 
 .access1 {
-    background-color: rgb(57, 163, 228);
-    font-size: 13px;
-    color: rgb(255, 255, 255);
-    font-style: normal;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 7px;
-    margin-right: 20px;
+    background-color: rgb(57, 163, 228) !important;
+    font-size: 13px !important;
+    color: rgb(255, 255, 255) !important;
+    font-style: normal !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    padding: 7px !important;
+    margin-right: 20px !important;
 }
 
 .access2 {
-    background-color: rgb(255, 255, 255);
-    font-size: 13px;
-    color: rgb(57, 163, 228);
-    font-style: normal;
+    background-color: rgb(255, 255, 255) !important;
+    font-size: 13px !important;
+    color: rgb(57, 163, 228) !important;
+    font-style: normal !important;
     border: solid;
-    border-color: rgb(57, 163, 228);
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 7px;
-    margin-right: 20px;
+    border-color: rgb(57, 163, 228) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    padding: 7px !important;
+    margin-right: 20px !important;
 }
 
 /* input type Color */
@@ -89,10 +89,10 @@ input {
 }
 
 /* Toggle */
-* {
+/* * {
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-}
+} */
 
 *:focus {
     outline: none;
@@ -112,8 +112,8 @@ input {
 .toggle-button-cover {
     display: table-cell;
     position: relative;
-    width: 200px;
-    height: 140px;
+    width: 50px;
+    height: 30px;
     box-sizing: border-box;
     bottom: 155px;
     right: 5px;
