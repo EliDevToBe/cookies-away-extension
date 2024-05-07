@@ -1,30 +1,33 @@
 console.log("Hello!");
-const defaultStyle = "color:pink !important; font-size:50px !important;background-color:black !important";
+const defaultStyle = "color:pink !important; font-size:50px !important;background-color:black !important;border-radius: 100px !important;";
 
 function cookiesAway(selector, style = defaultStyle) {
     selector.setAttribute("style", style);
     selector.setAttribute("type", "button");
-    selector.setAttribute("title", "Cliquez pour refuser tous les cookies")
+    selector.setAttribute("title", "Cliquez pour refuser tous les cookies");
+    selector.setAttribute("class", "");
+    selector.setAttribute("class", "cookiesAwayWithClass");
 }
 //----------------------------------------------------------------------------------
 
-const findSelector = (newStylePassing) => {
+const findSelector = (callback, newStylePassing) => {
+    let cookiesAwayWithClass = document.querySelector(".cookiesAwayWithClass");
 
     let oneTrustId = document.getElementById("onetrust-reject-all-handler");
     let oneTrustClass = document.querySelector(".onetrust-reject-all-handler");
     let oneTrustClass2 = document.querySelector(".onetrust-close-btn-handler");
     let didomiClass = document.querySelector(".didomi-continue-without-agreeing");
-    let didomiPaywall = document.querySelector(".didomi-popup-open");
+    // let didomiPaywall = document.querySelector(".didomi-popup-open");
 
-    let arraySelector = [oneTrustId, oneTrustClass, didomiClass, oneTrustClass2, didomiPaywall];
+    let arraySelector = [cookiesAwayWithClass, oneTrustId, oneTrustClass, didomiClass, oneTrustClass2];
 
     for (let i = 0; i < arraySelector.length; i++) {
 
         const element = arraySelector[i];
 
         try { // Instruction: Ici on essaie tout ce qu'on veut faire fonctionner. Si erreur, alors on bascule dans catch(error) sans stopper tout le code.
-            cookiesAway(element, newStylePassing);
-
+            callback(element, newStylePassing);
+            // messageToPopupScript({ type: "contentUpdate", content: newStylePassing });
         } catch (error) {
 
             console.log("pas d'element");
@@ -50,16 +53,14 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
 
     setTimeout(() => {//Retarde l'execution du code 
         //On attribue une variable pour chaque élément à pointer
-        findSelector();
+        findSelector(cookiesAway);
         openPopup();
+        messageToPopupScript(defaultStyle)
 
-    }, 500);// delay (en millisecondes)
+    }, 600);// delay (en millisecondes)
 
 }
 
-function updatePage(newStyle) {
-    findSelector(newStyle);
-}
 
 // Detects any event
 // chrome.runtime.onMessage.addListener(
@@ -72,12 +73,27 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 
     if (message.type == "style") {
         console.log(`Received - - --> ${message.content}`);
-
-        updatePage(message.content);
+        findSelector(cookiesAway, message.content);
 
     }
     if (message.type == "input") {
-        console.log("custom text")
+        // console.log("custom text")
+        findSelector(updateInnerText, message.content)
     }
+
     // console.log(message)
 })
+
+async function messageToPopupScript(content) {
+    let message = {
+        type: "contentUpdate",
+        content: content
+    };
+
+    chrome.runtime.sendMessage(message);
+    console.log("message sent to popup")
+}
+
+function updateInnerText(selector, text) {
+    selector.innerText = text
+}
