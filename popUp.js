@@ -7,8 +7,7 @@ const customSize = document.querySelector("#customSize");
 const customInput = document.querySelector("#customInput");
 
 let colorAccessibility = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;"
-customText.value = "#FFc0cb";
-customBackground.value = "#000000";
+
 
 // ============== EVENTS sur les bouttons ==============
 btnCustom1.addEventListener("click", async () => {
@@ -116,3 +115,35 @@ function getCustomInput() {
 
     return { type: "input", content: input }
 }
+
+// ===== Permet de mettre les valeurs initiales de nos parametres
+async function setInitialState() {
+
+    let localData = await chrome.storage.local.get();
+    let existingLocalStyle = await localData.cookiesAwayUserStyle;
+    let existingLocalText = await localData.cookiesAwayUserText;
+
+    if (existingLocalText) {
+        customInput.value = existingLocalText;
+    }
+    if (existingLocalStyle) {
+        let text = existingLocalStyle
+
+        let colors = text.split("#");
+        let textColorValue = "#" + colors[1].slice(0, 6);
+        let backgroundColorValue = "#" + colors[2].slice(0, 6);
+
+        let nearFontSize = text.split("font-size:");
+        let userSize = nearFontSize[1].slice(0, 4);
+
+        customText.value = textColorValue;
+        customBackground.value = backgroundColorValue;
+        customSize.value = parseInt(userSize);
+
+        console.log(nearFontSize)
+    } else {
+        customText.value = "#FFc0cb";
+        customBackground.value = "#000000";
+    }
+}
+setInitialState();
