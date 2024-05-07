@@ -2,7 +2,7 @@
     color: rgb(4, 29, 10);
 }
 
-body {
+#body {
     float: left;
     margin-right: 10px;
     width: 400px;

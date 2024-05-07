@@ -5,7 +5,8 @@
     "version": "1.0",
     "permissions": [
         "scripting",
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "background": {
         "service_worker": "popUp.js"
