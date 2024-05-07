@@ -10,22 +10,20 @@
 </head>
 
 <body id="body">
+    <main id="testMain">
+        <h1 class="popUp">Cookies Away!</h1> <!-- rajouter icône -->
+        <h3 class="info">Le saviez-vous ? </h3>
+        <!-- icône flèche du bas + fonction OVER "Voir plus" -->
+        <p class="hidden-text">
+            Aujourd'hui, la collecte de certains cookies est soumise au consentement des
+            internautes. Notre consentement est censé s'exercer librement et doit pouvoir
+            être retiré à tout moment.<br />
+            <br />
+            Or, de nombreux sites ont des pratiques douteuses en la matière et incitent
+            à accepter les cookies. Avec Cookies Away, nous voulons reprendre la main et décider,
+            en connaissance de cause, d'accepter les cookies, ou pas.
 
-    <body id="body">
-        <main>
-            <h1 class="popUp">Cookies Away!</h1> <!-- rajouter icône -->
-            <h3 class="info">Le saviez-vous ? </h3>
-            <!-- icône flèche du bas + fonction OVER "Voir plus" -->
-            <p class="hidden-text">
-                Aujourd'hui, la collecte de certains cookies est soumise au consentement des
-                internautes. Notre consentement est censé s'exercer librement et doit pouvoir
-                être retiré à tout moment.<br />
-                <br />
-                Or, de nombreux sites ont des pratiques douteuses en la matière et incitent
-                à accepter les cookies. Avec Cookies Away, nous voulons reprendre la main et décider,
-                en connaissance de cause, d'accepter les cookies, ou pas.
-
-                <!--
+            <!--                 
 Nous vous informons que ce site vous impose d'accepter ses cookies.
 Cela signifie potentiellement que vous devrez confier vos données à tous leurs partenaires.
 Parfois, vous serez contraints de vous abonner pour continuer à accéder à leurs informations.
@@ -33,15 +31,15 @@ Par bienveillance, nous souhaitions vous alerter afin que vous puissiez vous dem
 oui ou non, vous consentiez à accepter cette situation.
 Sachez que vous n'êtes pas obligés. Pour faciliter votre décision, nous vous encourageons à personnaliser
 vos boutons
-"Refuser" ou "Continuer sans accepter" ci-dessous:
--->
-            </p>
+"Refuser" ou "Continuer sans accepter" ci-dessous: -->
 
-            <h2 class="personalisation">Choisissez vos préférences</h2> <!-- rajouter icône -->
+        </p>
 
-            <!-- STYLES PREDEFINIS -->
-            <div id="containerStyle">
-                <button id="btnCustom1" type="button" class="access1" style="border:3px solid white !important;
+        <h2 class="personalisation">Choisissez vos préférences</h2> <!-- rajouter icône -->
+
+        <!-- STYLES PREDEFINIS -->
+        <div id="containerStyle">
+            <button id="btnCustom1" type="button" class="access1" style="border:3px solid white !important;
                     margin-right: 20px !important;
                     padding: 7px !important;
                     font-style: normal !important;
@@ -51,9 +49,9 @@ vos boutons
                     border-color: white !important;
                     border-radius: 100px;
                     transition: all ease-in-out 500ms;">
-                    Style n°1</button>
+                Style n°1</button>
 
-                <button id="btnCustom2" type="button" class="access1" style="background-color: rgb(255, 255, 255) !important;
+            <button id="btnCustom2" type="button" class="access1" style="background-color: rgb(255, 255, 255) !important;
                     font-size: 13px !important;
                     color: rgb(57, 163, 228) !important;
                     font-style: normal !important;
@@ -64,52 +62,52 @@ vos boutons
                     margin-right: 20px !important;
                     transition: all ease-in-out 500ms;
                     border-radius: 100px;">
-                    Style n°2</button>
-            </div>
-            <!-- CUSTOMISATION -->
-            <div id="containerCustomStyle">
-                <div>
-                    <input type="color" id="customText" name="head" />
-                    <label for="customText">Couleur du texte</label>
-                </div>
-
-                <div>
-                    <input type="color" id="customBackground" name="body" />
-                    <label for="customBackground">Fond de texte</label>
-                </div>
-                <div>
-                    <input type="range" id="customSize" name="body" value="50" min="0" max="100" step="1" />
-                    <label for="customSize">Taille du texte</label>
-                </div>
-
-
-                <div>
-                    <input type="text" id="customInput" placeholder="Nomme ton bouton">
-                </div>
+                Style n°2</button>
+        </div>
+        <!-- CUSTOMISATION -->
+        <div id="containerCustomStyle">
+            <div>
+                <input type="color" id="customText" name="head" />
+                <label for="customText">Couleur du texte</label>
             </div>
 
-            <h2 class="access">Accessibilité</h2> <!-- rajouter icône -->
-            <div id="app-cover">
-                <div class="row">
-                    <div class="toggle-button-cover">
-                        <div class="button-cover">
-                            <div class="button r" id="button-1">
-                                <input type="checkbox" class="checkbox" />
-                                <div class="knobs"></div>
-                                <div class="layer"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="toggle-button-cover">
-                        <div class="button-cover">
-                            <div class="button r"></div>
+            <div>
+                <input type="color" id="customBackground" name="body" />
+                <label for="customBackground">Fond de texte</label>
+            </div>
+            <div>
+                <input type="range" id="customSize" name="body" value="50" min="0" max="100" step="1" />
+                <label for="customSize">Taille du texte</label>
+            </div>
+
+
+            <div>
+                <input type="text" id="customInput" placeholder="Nomme ton bouton">
+            </div>
+        </div>
+
+        <h2 class="access">Accessibilité</h2> <!-- rajouter icône -->
+        <div id="app-cover">
+            <div class="row">
+                <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <div class="button r" id="button-1">
+                            <input type="checkbox" class="checkbox" />
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
                         </div>
                     </div>
                 </div>
+                <div class="toggle-button-cover">
+                    <div class="button-cover">
+                        <div class="button r"></div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-        </main>
-        <script src="popUp.js"></script>
-    </body>
+    </main>
+    <script src="popUp.js"></script>
+</body>
 
 </html>

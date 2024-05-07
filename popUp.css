@@ -220,13 +220,17 @@ input {
 }
 
 /* Le saviez-vous ?*/
+h3 {
+    transition: background-color ease-in 250ms;
+}
 
 h3:hover {
     background-color: #ebf7fc;
+    transition: all ease-out 250ms;
 }
 
 .hidden-text {
-    /*visibility: hidden;*/
+    /* visibility: hidden; */
     display: none;
     /*transition: all ease-in-out 2s;*/
 }
