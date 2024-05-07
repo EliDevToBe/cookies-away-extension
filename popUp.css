@@ -100,7 +100,7 @@ input {
 
 #app-cover {
     display: table;
-    width: 600px;
+    width: 100px;
     margin: 74px auto;
     counter-reset: button-counter;
 }
@@ -127,7 +127,7 @@ input {
     border-radius: 4px;
 }
 
-.button-cover:before {
+/* .button-cover:before {
     counter-increment: button-counter;
     content: counter(button-counter);
     position: absolute;
@@ -136,7 +136,7 @@ input {
     color: #d7e3e3;
     font-size: 12px;
     padding: 5px;
-}
+} */
 
 .button-cover,
 .knobs,
@@ -220,11 +220,16 @@ input {
 }
 
 /* Le saviez-vous ?*/
-h3 {
+.info {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px 15px 0px;
     transition: background-color ease-in 250ms;
+    height: 5vh;
+    justify-content: center;
 }
 
-h3:hover {
+.info:hover {
     background-color: #ebf7fc;
     transition: all ease-out 250ms;
 }
