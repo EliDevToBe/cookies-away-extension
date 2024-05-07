@@ -5,6 +5,7 @@ const customText = document.querySelector("#customText");
 const customBackground = document.querySelector("#customBackground");
 const customSize = document.querySelector("#customSize");
 const customInput = document.querySelector("#customInput");
+const toggleBtn = document.querySelector("toggle-button-cover");
 
 let colorAccessibility = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;"
 customText.value = "#FFc0cb";
@@ -40,6 +41,9 @@ btnCustom2.addEventListener("click", async () => {
         content: btnStyle
     });
 })
+
+
+
 
 // =============== EVENT SUR CUSTOM SETTINGS ==================
 // ==== Event sur color text
@@ -111,4 +115,12 @@ function getCustomInput() {
     let input = customInput.value.trim();
 
     return { type: "input", content: input }
+}
+
+const toggleFunction = () => {
+    if (toggleBtn ===) {
+
+    } else {
+
+    }
 }
