@@ -8,7 +8,7 @@
 #body {
     float: inline-start;
     position: relative;
-    margin: 20px 20px 20px;
+    margin: 10px 10px 10px;
     width: 350px;
     height: 150px;
     border: none;
@@ -33,7 +33,7 @@ button {
     text-align: center;
 }
 
-.paragraph {
+.hidden-text {
     text-align: justify;
     font-family: Arial, Helvetica, sans-serif;
 }
