@@ -13,7 +13,7 @@ const findSelector = () => {
     let oneTrustClass = document.querySelector(".onetrust-reject-all-handler");
     let oneTrustClass2 = document.querySelector(".onetrust-close-btn-handler");
     let didomiClass = document.querySelector(".didomi-continue-without-agreeing");
-    let didomiPaywall = document.querySelector(".didomi-popup-open");
+    /* let didomiPaywall = document.querySelector(".didomi-popup-open"); */
 
     let arraySelector = [oneTrustId, oneTrustClass, didomiClass, oneTrustClass2, didomiPaywall];
 

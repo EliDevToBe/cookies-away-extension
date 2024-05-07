@@ -1,18 +1,22 @@
 .popUp {
-    color: rgb(4, 29, 10);
+    color: rgb(13, 95, 196);
+    font-family: Arial, Helvetica, sans-serif;
+    border-color: #8AAAE5;
+    border-radius: 100px;
 }
 
-body {
-    float: left;
-    position: flex;
-    margin-right: 10px;
-    width: 400px;
-    height: 400px;
+#body {
+    float: inline-start;
+    position: relative;
+    margin: 20px 20px 20px;
+    width: 350px;
+    height: 150px;
     border: none;
-    border-color: rgb(3, 31, 48);
-    background-color: rgb(193, 227, 248);
-    padding: 5em;
-
+    background-color: #ffffff;
+    padding: 1.5em;
+    color: rgb(13, 95, 196);
+    font-family: Arial, Helvetica, sans-serif;
+    top: auto;
 }
 
 button {
@@ -31,6 +35,7 @@ button {
 
 .paragraph {
     text-align: justify;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .info {
@@ -39,30 +44,36 @@ button {
 
 .personalisation {
     text-align: left;
+    font-weight: bold;
 }
 
 .access {
     text-align: left;
+    font-weight: bold;
 }
 
 /* Styles prédéfinis */
 
 .access1 {
-    background-color: rgb(44, 5, 82);
-    font-size: 20px;
-    color: yellow;
-    font-style: italic;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    padding: 10px;
+    background-color: rgb(57, 163, 228);
+    font-size: 13px;
+    color: rgb(255, 255, 255);
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 7px;
+    margin-right: 20px;
 }
 
 .access2 {
-    background-color: rgb(206, 20, 20);
-    font-size: 20px;
-    color: rgb(255, 255, 255);
-    font-style: italic;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    font-size: 13px;
+    color: rgb(57, 163, 228);
+    font-style: normal;
+    border: solid;
+    border-color: rgb(57, 163, 228);
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 7px;
+    margin-right: 20px;
 }
 
 /* input type Color */
@@ -89,9 +100,8 @@ input {
 
 #app-cover {
     display: table;
-
     width: 600px;
-    margin: 80px auto;
+    margin: 74px auto;
     counter-reset: button-counter;
 }
 
@@ -105,6 +115,9 @@ input {
     width: 200px;
     height: 140px;
     box-sizing: border-box;
+    bottom: 155px;
+    right: 5px;
+
 }
 
 .button-cover {
@@ -122,7 +135,6 @@ input {
     bottom: 0;
     color: #d7e3e3;
     font-size: 12px;
-    line-height: 1;
     padding: 5px;
 }
 
@@ -141,7 +153,7 @@ input {
     top: 50%;
     width: 74px;
     height: 36px;
-    margin: -20px auto 0 auto;
+    margin: -14.5px auto 0 auto;
     overflow: hidden;
 }
 
@@ -167,38 +179,38 @@ input {
 
 .layer {
     width: 100%;
-    background-color: #ebf7fc;
+    background-color: #def5ff;
     transition: 0.3s ease all;
-    z-index: 1;
+    z-index: 0;
 }
 
 /* Button 1 */
 #button-1 .knobs:before {
-    content: "YES";
+    content: "ON";
     position: absolute;
     top: 4px;
     left: 4px;
-    width: 20px;
-    height: 10px;
+    width: 18px;
+    height: 9px;
     color: #fff;
     font-size: 10px;
     font-weight: bold;
     text-align: center;
     line-height: 1;
     padding: 9px 4px;
-    background-color: #03a9f4;
+    background-color: rgb(13, 95, 196);
     border-radius: 50%;
     transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
 }
 
 #button-1 .checkbox:checked+.knobs:before {
-    content: "NO";
+    content: "OFF";
     left: 42px;
     background-color: #f44336;
 }
 
-#button-1 .checkbox:checked~.layer {
-    background-color: #fcebeb;
+#button-1 .checkbox:checked.layer {
+    background-color: #fcb5b5;
 }
 
 #button-1 .knobs,
