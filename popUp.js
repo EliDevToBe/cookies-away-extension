@@ -71,43 +71,15 @@ customInput.addEventListener("input", async (event) => {
 })
 // ==== Event sur le toggle accessibilité
 toggleAccessibility.addEventListener("change", async () => {
-
     // Si la case est cochée
     if (toggleAccessibility.hasAttribute("checked")) {
 
-        toggleAccessibility.removeAttribute("checked");
-
-        customText.removeAttribute("disabled");
-        customBackground.removeAttribute("disabled");
-        customSize.removeAttribute("disabled");
-        btnCustom1.removeAttribute("disabled");
-        btnCustom2.removeAttribute("disabled");
-
-        customText.removeAttribute("title");
-        customBackground.removeAttribute("title");
-        customSize.removeAttribute("title");
-        btnCustom1.removeAttribute("title");
-        btnCustom2.removeAttribute("title");
+        boxUnchecked();
 
     } else { // Si elle est décochée
-        toggleAccessibility.setAttribute("checked", "");
-
-        customText.setAttribute("disabled", "");
-        customBackground.setAttribute("disabled", "");
-        customSize.setAttribute("disabled", "");
-        btnCustom1.setAttribute("disabled", "");
-        btnCustom2.setAttribute("disabled", "");
-
-        customText.setAttribute("title", "/!\\ Option d'accessibilité activée");
-        customBackground.setAttribute("title", "/!\\ Option d'accessibilité activée");
-        customSize.setAttribute("title", "/!\\ Option d'accessibilité activée");
-        btnCustom1.setAttribute("title", "/!\\ Option d'accessibilité activée")
-        btnCustom2.setAttribute("title", "/!\\ Option d'accessibilité activée")
-
-        let accessibleStyle = { cookiesAwayUserStyle: colorAccessibility };
-        chrome.storage.local.set(accessibleStyle);
-
+        boxChecked();
         setInitialState();
+
         messageToContentScript({
             type: "style",
             content: colorAccessibility
@@ -171,12 +143,17 @@ async function setInitialState() {
     let localData = await chrome.storage.local.get();
     let existingLocalStyle = await localData.cookiesAwayUserStyle;
     let existingLocalText = await localData.cookiesAwayUserText;
+    let existingLocalToggleState = await localData.cookiesAwayToggleAccessibility;
 
     if (existingLocalText) {
         customInput.value = existingLocalText;
     }
+    if (existingLocalToggleState) {
+        // mettre etat inital du popup qund la checkbox est cochee
+        boxChecked();
+    }
     if (existingLocalStyle) {
-        let text = existingLocalStyle
+        let text = existingLocalStyle;
 
         let colors = text.split("#");
         let textColorValue = "#" + colors[1].slice(0, 6);
@@ -196,3 +173,45 @@ async function setInitialState() {
     }
 }
 setInitialState();
+
+// ===== Fonctions des états de la checkbox accessibilité =====
+async function boxUnchecked() {
+    toggleAccessibility.removeAttribute("checked");
+
+    customText.removeAttribute("disabled");
+    customBackground.removeAttribute("disabled");
+    customSize.removeAttribute("disabled");
+    btnCustom1.removeAttribute("disabled");
+    btnCustom2.removeAttribute("disabled");
+
+    customText.removeAttribute("title");
+    customBackground.removeAttribute("title");
+    customSize.removeAttribute("title");
+    btnCustom1.removeAttribute("title");
+    btnCustom2.removeAttribute("title");
+
+    let toggleAccessibilityOFF = { cookiesAwayToggleAccessibility: false };
+    chrome.storage.local.set(toggleAccessibilityOFF);
+}
+async function boxChecked() {
+    toggleAccessibility.setAttribute("checked", "");
+
+    customText.setAttribute("disabled", "");
+    customBackground.setAttribute("disabled", "");
+    customSize.setAttribute("disabled", "");
+    btnCustom1.setAttribute("disabled", "");
+    btnCustom2.setAttribute("disabled", "");
+
+    customText.setAttribute("title", "/!\\ Option d'accessibilité activée");
+    customBackground.setAttribute("title", "/!\\ Option d'accessibilité activée");
+    customSize.setAttribute("title", "/!\\ Option d'accessibilité activée");
+    btnCustom1.setAttribute("title", "/!\\ Option d'accessibilité activée")
+    btnCustom2.setAttribute("title", "/!\\ Option d'accessibilité activée")
+
+    let accessibleStyle = { cookiesAwayUserStyle: colorAccessibility };
+    chrome.storage.local.set(accessibleStyle);
+
+    let toggleAccessibilityON = { cookiesAwayToggleAccessibility: true };
+    chrome.storage.local.set(toggleAccessibilityON);
+
+}
