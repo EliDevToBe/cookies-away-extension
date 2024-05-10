@@ -9,7 +9,7 @@
     float: inline-start;
     position: relative;
     margin: 10px 10px 10px;
-    width: 350px;
+    width: 300px;
     height: 150px;
     border: none;
     background-color: #ffffff;
@@ -43,18 +43,20 @@ button {
 }
 
 .personalisation {
-    text-align: left;
+    text-align: center;
     font-weight: bold;
 }
 
 .access {
-    text-align: left;
+
+    text-align: center;
     font-weight: bold;
 }
 
 /* Styles prédéfinis */
 
 .access1 {
+    cursor: pointer;
     background-color: rgb(57, 163, 228) !important;
     font-size: 13px !important;
     color: rgb(255, 255, 255) !important;
@@ -79,6 +81,7 @@ button {
 /* input type Color */
 h2,
 label {
+
     font:
         1rem 'Fira Sans',
         sans-serif;
@@ -86,6 +89,54 @@ label {
 
 input {
     margin: 0.4rem;
+}
+
+#paragraph {
+    text-align: center;
+}
+
+#containerCustomStyle {
+    /* text-align: center; */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 5px solid #ebf7fc;
+    border-bottom: 5px solid #ebf7fc;
+}
+
+#containerStyle {
+    text-align: center;
+}
+
+.customSelectorText {
+    margin-left: 30px;
+}
+
+#customText {
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+#customBackground {
+    margin-left: 70px;
+    cursor: pointer;
+}
+
+#customSize {
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+#customInput {
+    margin-top: 15px;
+    border-radius: 25px;
+    text-align: center;
+    height: 20px;
+}
+
+#customInputContainer {
+    text-align: center;
 }
 
 /* Toggle */
@@ -237,6 +288,7 @@ input {
 .hidden-text {
     /* visibility: hidden; */
     display: none;
+
     /*transition: all ease-in-out 2s;*/
 }
 

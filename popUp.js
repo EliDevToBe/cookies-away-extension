@@ -96,7 +96,7 @@ function getCustomStyle() {
     let background = `background-color:${customBackground.value} !important;`
     let size = `font-size:${parseInt(customSize.value)}px !important;`
     let outline = `border:3px solid ${customText.value} !important;`
-    let finalStyle = textStyle + background + size + outline + "border-radius:100px !important;"
+    let finalStyle = textStyle + background + size + outline + "border-radius:100px !important;" + `min-height:${parseInt(customSize.value) / 2}px !important;`
 
     // == Objet pour le stocker dans le Storage.local
     let cookiesAway = { cookiesAwayUserStyle: finalStyle }

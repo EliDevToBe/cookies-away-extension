@@ -14,7 +14,7 @@
         <h1 class="popUp">Cookies Away!</h1> <!-- rajouter icône -->
         <h3 class="info">Le saviez-vous ? </h3>
         <!-- icône flèche du bas + fonction OVER "Voir plus" -->
-        <p class="hidden-text">
+        <p class="hidden-text" id="paragraph">
             Aujourd'hui, la collecte de certains cookies est soumise au consentement des
             internautes. Notre consentement est censé s'exercer librement et doit pouvoir
             être retiré à tout moment.<br />
@@ -67,21 +67,21 @@ vos boutons
         <!-- CUSTOMISATION -->
         <div id="containerCustomStyle">
             <div>
+                <label for="customText" class="customSelectorText">Couleur du texte</label>
                 <input type="color" id="customText" name="head" />
-                <label for="customText">Couleur du texte</label>
             </div>
 
             <div>
+                <label for="customBackground" class="customSelectorText">Fond de texte</label>
                 <input type="color" id="customBackground" name="body" />
-                <label for="customBackground">Fond de texte</label>
             </div>
             <div>
+                <label for="customSize" class="customSelectorText">Taille du texte</label>
                 <input type="range" id="customSize" name="body" value="50" min="0" max="100" step="1" />
-                <label for="customSize">Taille du texte</label>
             </div>
 
 
-            <div>
+            <div id="customInputContainer">
                 <input type="text" id="customInput" placeholder="Nomme ton bouton" autocomplete="off">
             </div>
         </div>
