@@ -5,8 +5,9 @@ const customText = document.querySelector("#customText");
 const customBackground = document.querySelector("#customBackground");
 const customSize = document.querySelector("#customSize");
 const customInput = document.querySelector("#customInput");
+const toggleAccessibility = document.querySelector("#toggleAccessibility");
 
-let colorAccessibility = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;"
+let colorAccessibility = "color:#FF6BE4 !important;background-color:#000000 !important;font-size: 50px !important;border:3px solid #FF6BE4 !important;border-radius: 100px !important;"
 
 
 // ============== EVENTS sur les bouttons ==============
@@ -67,6 +68,51 @@ customInput.addEventListener("input", async (event) => {
 
     let textFromUserInput = getCustomInput();
     messageToContentScript(textFromUserInput);
+})
+// ==== Event sur le toggle accessibilité
+toggleAccessibility.addEventListener("change", async () => {
+
+    // Si la case est cochée
+    if (toggleAccessibility.hasAttribute("checked")) {
+
+        toggleAccessibility.removeAttribute("checked");
+
+        customText.removeAttribute("disabled");
+        customBackground.removeAttribute("disabled");
+        customSize.removeAttribute("disabled");
+        btnCustom1.removeAttribute("disabled");
+        btnCustom2.removeAttribute("disabled");
+
+        customText.removeAttribute("title");
+        customBackground.removeAttribute("title");
+        customSize.removeAttribute("title");
+        btnCustom1.removeAttribute("title");
+        btnCustom2.removeAttribute("title");
+
+    } else { // Si elle est décochée
+        toggleAccessibility.setAttribute("checked", "");
+
+        customText.setAttribute("disabled", "");
+        customBackground.setAttribute("disabled", "");
+        customSize.setAttribute("disabled", "");
+        btnCustom1.setAttribute("disabled", "");
+        btnCustom2.setAttribute("disabled", "");
+
+        customText.setAttribute("title", "/!\\ Option d'accessibilité activée");
+        customBackground.setAttribute("title", "/!\\ Option d'accessibilité activée");
+        customSize.setAttribute("title", "/!\\ Option d'accessibilité activée");
+        btnCustom1.setAttribute("title", "/!\\ Option d'accessibilité activée")
+        btnCustom2.setAttribute("title", "/!\\ Option d'accessibilité activée")
+
+        let accessibleStyle = { cookiesAwayUserStyle: colorAccessibility };
+        chrome.storage.local.set(accessibleStyle);
+
+        setInitialState();
+        messageToContentScript({
+            type: "style",
+            content: colorAccessibility
+        });
+    }
 })
 // ========================= END EVENTS ====================
 
