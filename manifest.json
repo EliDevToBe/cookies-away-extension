@@ -20,7 +20,6 @@
                 "contentScript.js"
             ],
             "matches": [
-                "https://*.carrefour.fr/*",
                 "<all_urls>"
             ],
             "css": [
