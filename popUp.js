@@ -12,7 +12,7 @@ let colorAccessibility = "color:#FF6BE4 !important;background-color:#000000 !imp
 
 // ============== EVENTS sur les bouttons ==============
 btnCustom1.addEventListener("click", async () => {
-    console.log("Bouton popup clicked")
+    // console.log("Bouton popup clicked")
 
     let size = `font-size:${parseInt(customSize.value)}px !important;`
 
@@ -27,7 +27,7 @@ btnCustom1.addEventListener("click", async () => {
     getCustomStyle();
 })
 btnCustom2.addEventListener("click", async () => {
-    console.log("Bouton popup clicked")
+    // console.log("Bouton popup clicked")
 
     let size = `font-size:${parseInt(customSize.value)}px !important;`
 
@@ -166,7 +166,7 @@ async function setInitialState() {
         customBackground.value = backgroundColorValue;
         customSize.value = parseInt(userSize);
 
-        console.log(nearFontSize)
+        // console.log(nearFontSize)
     } else {
         customText.value = "#FF6BE4";
         customBackground.value = "#000000";

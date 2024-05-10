@@ -1,4 +1,4 @@
-console.log("Hello!");
+// console.log("Hello!");
 const defaultStyle = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;";
 // chrome.storage.local.clear(); // <-- - - EASY ERASE STORAGE
 
@@ -32,7 +32,7 @@ const findSelector = (callback, newStylePassing) => {
             // messageToPopupScript({ type: "contentUpdate", content: newStylePassing });
         } catch (error) {
 
-            console.log("pas d'element");
+            // console.log("pas d'element");
 
         }
 
@@ -73,7 +73,7 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
         openPopup();
 
         // ==== Debugger call
-        chrome.storage.local.get().then((data) => console.log(data));
+        // chrome.storage.local.get().then((data) => console.log(data));
 
     }, 600);// delay (en millisecondes)
 
@@ -87,10 +87,10 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
 
 // Detect a specific event message
 chrome.runtime.onMessage.addListener((message, sender) => {
-    console.log("event detection on ContentScript");
+    // console.log("event detection on ContentScript");
 
     if (message.type == "style") {
-        console.log(`Received - - --> ${message.content}`);
+        // console.log(`Received - - --> ${message.content}`);
         findSelector(cookiesAway, message.content);
 
     }
@@ -111,7 +111,7 @@ async function messageToPopupScript(content) {
     };
 
     chrome.runtime.sendMessage(message);
-    console.log("message sent to popup")
+    // console.log("message sent to popup")
 }
 
 // ==== Fonction pour modifier le contenu d'un selecteur
