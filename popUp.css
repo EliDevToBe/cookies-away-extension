@@ -27,6 +27,7 @@ button {
     padding: 10px 10px;
     text-align: center;
     font-size: 15px;
+    cursor: pointer;
 }
 
 .popUp {
