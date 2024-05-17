@@ -8,82 +8,68 @@ const customInput = document.querySelector("#customInput");
 const toggleAccessibility = document.querySelector("#toggleAccessibility");
 
 let colorAccessibility = "color:#FF6BE4 !important;background-color:#000000 !important;font-size: 50px !important;border:3px solid #FF6BE4 !important;border-radius: 100px !important;"
-
+let predefStylePrimary = "#FFFFFF";
+let predefStyleSecondary = "#39a3e4";
 
 // ============== EVENTS sur les bouttons ==============
 btnCustom1.addEventListener("click", async () => {
     // console.log("Bouton popup clicked")
 
     let size = `font-size:${parseInt(customSize.value)}px !important;`
-
     let btnStyle = btnCustom1.attributes.style.nodeValue + size;
-    customText.value = "#FFFFFF";
-    customBackground.value = "#39a3e4";
 
-    messageToContentScript({
-        type: "style",
-        content: btnStyle
-    });
-    getCustomStyle();
+    setColorValueOfCustom(predefStylePrimary, predefStyleSecondary)
+
+    messageToContentScript("style", btnStyle);
+    // getCustomStyle();
 })
 btnCustom2.addEventListener("click", async () => {
     // console.log("Bouton popup clicked")
 
     let size = `font-size:${parseInt(customSize.value)}px !important;`
-
-
     let btnStyle = btnCustom2.attributes.style.nodeValue + size;
-    customText.value = "#39a3e4";
-    customBackground.value = "#FFFFFF";
 
-    messageToContentScript({
-        type: "style",
-        content: btnStyle
-    });
-    getCustomStyle();
+    setColorValueOfCustom(predefStyleSecondary, predefStylePrimary)
+
+    messageToContentScript("style", btnStyle);
+    // getCustomStyle();
 })
 
 // =============== EVENT SUR CUSTOM SETTINGS ==================
-// ==== Event sur color text
-customText.addEventListener("input", async () => {
+// ==== Array of each possible customization selector
+const customHTMLSelectors = [customText, customBackground, customSize];
 
-    let customStyle = getCustomStyle();
-    messageToContentScript(customStyle);
-})
-// ==== Event sur background color
-customBackground.addEventListener("input", async () => {
+for (selector of customHTMLSelectors) {
+    // == Set an event listener on each customization selector
+    selector.addEventListener("input", async () => {
 
-    let customStyle = getCustomStyle();
-    messageToContentScript(customStyle);
-})
-// ==== Event sur Font-Size
-customSize.addEventListener("input", async () => {
+        let customStyle = getFinalCustomStyle();
+        messageToContentScript("style", customStyle);
+    })
+}
 
-    let customStyle = getCustomStyle();
-    messageToContentScript(customStyle);
-})
 // ==== Event sur le custom input Text
+// == We need the custom text inside the selector to be independant of color/size
 customInput.addEventListener("input", async (event) => {
     event.preventDefault();
 
     let textFromUserInput = getCustomInput();
-    messageToContentScript(textFromUserInput);
+    messageToContentScript("input", textFromUserInput);
 })
+
 // ==== Event sur le toggle accessibilité
 toggleAccessibility.addEventListener("change", async () => {
     // Si la case est cochée
     if (toggleAccessibility.hasAttribute("checked")) {
 
-        boxUnchecked();
+        boxUnchecking();
 
     } else { // Si elle est décochée
-        boxChecked();
+        boxChecking();
+        // Remet tout bien les valeurs des customs settings
         setInitialState();
 
-        messageToContentScript({
-            type: "style",
-            content: colorAccessibility
-        });
+        messageToContentScript("style", colorAccessibility);
     }
 })
 // ========================= END EVENTS ====================
@@ -97,24 +83,30 @@ async function getCurrentTab() {
     return tab;
 }
 
-async function messageToContentScript(text, callback) {
+async function messageToContentScript(typeOfMessage, messageContent, callback) {
 
     let data = await getCurrentTab();
     let tabId = await data.id;
-    let message = text;
+    let message = { type: typeOfMessage, content: messageContent };
 
     chrome.tabs.sendMessage(tabId, message, callback)
 }
 
-// Return un objet pour la réponse {type: , content: }
+// Return le style final à appliquer
 // Objet necessaire pour les messages
-function getCustomStyle() {
+function getFinalCustomStyle() {
 
     let textStyle = `color:${customText.value} !important;`
     let background = `background-color:${customBackground.value} !important;`
     let size = `font-size:${parseInt(customSize.value)}px !important;`
     let outline = `border:3px solid ${customText.value} !important;`
-    let finalStyle = textStyle + background + size + outline + "border-radius:100px !important;" + `min-height:${parseInt(customSize.value) / 2}px !important;`
+
+    let finalStyle = textStyle
+        + background
+        + size
+        + outline
+        + "border-radius:100px !important;"
+        + `min-height:${parseInt(customSize.value) / 2}px !important;`
 
     // == Objet pour le stocker dans le Storage.local
     let cookiesAway = { cookiesAwayUserStyle: finalStyle }
@@ -123,7 +115,7 @@ function getCustomStyle() {
     chrome.storage.local.set(cookiesAway);
     // chrome.storage.local.get().then((data) => console.log(data))
 
-    return { type: "style", content: finalStyle }
+    return finalStyle
 }
 
 // ==== Allows us to take user input from input-box
@@ -134,26 +126,26 @@ function getCustomInput() {
     let inputToStore = { cookiesAwayUserText: input }
     chrome.storage.local.set(inputToStore);
 
-    return { type: "input", content: input }
+    return input
 }
 
 // ===== Permet de mettre les valeurs initiales de nos parametres
 async function setInitialState() {
 
-    let localData = await chrome.storage.local.get();
-    let existingLocalStyle = await localData.cookiesAwayUserStyle;
-    let existingLocalText = await localData.cookiesAwayUserText;
-    let existingLocalToggleState = await localData.cookiesAwayToggleAccessibility;
+    let userData = await chrome.storage.local.get();
+    let existingUserStyle = await userData.cookiesAwayUserStyle;
+    let existingUserText = await userData.cookiesAwayUserText;
+    let existingUserToggleState = await userData.cookiesAwayToggleAccessibility;
 
-    if (existingLocalText) {
-        customInput.value = existingLocalText;
+    if (existingUserText) {
+        customInput.value = existingUserText;
     }
-    if (existingLocalToggleState) {
+    if (existingUserToggleState) {
         // mettre etat inital du popup qund la checkbox est cochee
-        boxChecked();
+        boxChecking();
     }
-    if (existingLocalStyle) {
-        let text = existingLocalStyle;
+    if (existingUserStyle) {
+        let text = existingUserStyle;
 
         let colors = text.split("#");
         let textColorValue = "#" + colors[1].slice(0, 6);
@@ -168,14 +160,14 @@ async function setInitialState() {
 
         // console.log(nearFontSize)
     } else {
-        customText.value = "#FF6BE4";
-        customBackground.value = "#000000";
+        // === Accessible PINK text and BLACK background
+        setColorValueOfCustom("#FF6Be4", "#000000")
     }
 }
 setInitialState();
 
 // ===== Fonctions des états de la checkbox accessibilité =====
-async function boxUnchecked() {
+async function boxUnchecking() {
     toggleAccessibility.removeAttribute("checked");
 
     customText.removeAttribute("disabled");
@@ -193,7 +185,7 @@ async function boxUnchecked() {
     let toggleAccessibilityOFF = { cookiesAwayToggleAccessibility: false };
     chrome.storage.local.set(toggleAccessibilityOFF);
 }
-async function boxChecked() {
+async function boxChecking() {
     toggleAccessibility.setAttribute("checked", "");
 
     customText.setAttribute("disabled", "");
@@ -214,4 +206,10 @@ async function boxChecked() {
     let toggleAccessibilityON = { cookiesAwayToggleAccessibility: true };
     chrome.storage.local.set(toggleAccessibilityON);
 
+}
+
+// ==== Function to set value of custom Text and Background
+function setColorValueOfCustom(textColorValue, backgroundColorValue) {
+    customText.value = textColorValue;
+    customBackground.value = backgroundColorValue;
 }

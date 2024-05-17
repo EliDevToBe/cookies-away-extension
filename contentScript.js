@@ -2,8 +2,9 @@
 const defaultStyle = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;";
 // chrome.storage.local.clear(); // <-- - - EASY ERASE STORAGE
 
-
-function cookiesAway(selector, style = defaultStyle) {
+// == selector > HTML element
+// == style > String, will be set inline as attribute 'style='
+function setStyleOnSelector(selector, style = defaultStyle) {
     selector.setAttribute("style", style);
     selector.setAttribute("type", "button");
     selector.setAttribute("title", "Cliquez pour refuser tous les cookies");
@@ -12,7 +13,10 @@ function cookiesAway(selector, style = defaultStyle) {
 }
 //----------------------------------------------------------------------------------
 
-const findSelector = (callback, newStylePassing) => {
+// ==== Function to identify which type of Cookie Banner is used
+// == callback > Fn() that will be call on the selector when found
+// == argumentCallback > argument passed on for the callback Fn()
+const findSelector = (callback, argumentCallback) => {
     let cookiesAwayWithClass = document.querySelector(".cookiesAwayWithClass");
 
     let oneTrustId = document.getElementById("onetrust-reject-all-handler");
@@ -28,7 +32,7 @@ const findSelector = (callback, newStylePassing) => {
         const element = arraySelector[i];
 
         try { // Instruction: Ici on essaie tout ce qu'on veut faire fonctionner. Si erreur, alors on bascule dans catch(error) sans stopper tout le code.
-            callback(element, newStylePassing);
+            callback(element, argumentCallback);
             // messageToPopupScript({ type: "contentUpdate", content: newStylePassing });
         } catch (error) {
 
@@ -39,7 +43,9 @@ const findSelector = (callback, newStylePassing) => {
     }
 };
 
-const openPopup = () => {
+// ==== Search the page HTML for keyword "paywall"
+// == return alert(...)
+const detectPaywall = () => {
 
     let paywallFinder = document.querySelector("body").innerHTML.includes("paywall");
 
@@ -60,17 +66,17 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
         let existingLocalText = await localData.cookiesAwayUserText
 
         // Ici nous permettra de verifier la présence d'un style local
-        // == S'il existe, applique cookiesAway avec le Style du user
-        // == Sinon, applique cookiesAway avec le style par défaut
+        // == S'il existe, applique setStyleOnSelector avec le Style du user
+        // == Sinon, applique setStyleOnSelector avec le style par défaut
         if (existingLocalStyle) {
-            findSelector(cookiesAway, existingLocalStyle)
+            findSelector(setStyleOnSelector, existingLocalStyle)
         } else {
-            findSelector(cookiesAway);
+            findSelector(setStyleOnSelector);
         }
         if (existingLocalText) {
             findSelector(updateInnerText, existingLocalText)
         }
-        openPopup();
+        detectPaywall();
 
         // ==== Debugger call
         // chrome.storage.local.get().then((data) => console.log(data));
@@ -91,7 +97,7 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 
     if (message.type == "style") {
         // console.log(`Received - - --> ${message.content}`);
-        findSelector(cookiesAway, message.content);
+        findSelector(setStyleOnSelector, message.content);
 
     }
     if (message.type == "input") {
@@ -115,6 +121,8 @@ async function messageToPopupScript(content) {
 }
 
 // ==== Fonction pour modifier le contenu d'un selecteur
+// == selector > HTML element
+// == text > String, will be the content of Selector
 function updateInnerText(selector, text) {
     selector.innerText = text
 }
