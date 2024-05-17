@@ -21,7 +21,7 @@ btnCustom1.addEventListener("click", async () => {
     setColorValueOfCustom(predefStylePrimary, predefStyleSecondary)
 
     messageToContentScript("style", btnStyle);
-    // getCustomStyle();
+    savePreferences("test", "this is my test");
 })
 btnCustom2.addEventListener("click", async () => {
     // console.log("Bouton popup clicked")
@@ -32,7 +32,6 @@ btnCustom2.addEventListener("click", async () => {
     setColorValueOfCustom(predefStyleSecondary, predefStylePrimary)
 
     messageToContentScript("style", btnStyle);
-    // getCustomStyle();
 })
 
 // =============== EVENT SUR CUSTOM SETTINGS ==================
@@ -108,12 +107,8 @@ function getFinalCustomStyle() {
         + "border-radius:100px !important;"
         + `min-height:${parseInt(customSize.value) / 2}px !important;`
 
-    // == Objet pour le stocker dans le Storage.local
-    let cookiesAway = { cookiesAwayUserStyle: finalStyle }
-
     // Sauvegarde dans le storage local
-    chrome.storage.local.set(cookiesAway);
-    // chrome.storage.local.get().then((data) => console.log(data))
+    savePreferences("cookiesAwayUserStyle", finalStyle);
 
     return finalStyle
 }
@@ -122,9 +117,8 @@ function getFinalCustomStyle() {
 function getCustomInput() {
     let input = customInput.value.trim();
 
-    // == Objet pour le stockage du texte custom
-    let inputToStore = { cookiesAwayUserText: input }
-    chrome.storage.local.set(inputToStore);
+    // == Sauvegarde chrome storage
+    savePreferences("cookiesAwayUserText", input);
 
     return input
 }
@@ -182,8 +176,9 @@ async function boxUnchecking() {
     btnCustom1.removeAttribute("title");
     btnCustom2.removeAttribute("title");
 
-    let toggleAccessibilityOFF = { cookiesAwayToggleAccessibility: false };
-    chrome.storage.local.set(toggleAccessibilityOFF);
+    // === Save preferences to chrome storage
+    savePreferences("cookiesAwayToggleAccessibility", false)
+
 }
 async function boxChecking() {
     toggleAccessibility.setAttribute("checked", "");
@@ -200,16 +195,24 @@ async function boxChecking() {
     btnCustom1.setAttribute("title", "/!\\ Option d'accessibilité activée")
     btnCustom2.setAttribute("title", "/!\\ Option d'accessibilité activée")
 
-    let accessibleStyle = { cookiesAwayUserStyle: colorAccessibility };
-    chrome.storage.local.set(accessibleStyle);
-
-    let toggleAccessibilityON = { cookiesAwayToggleAccessibility: true };
-    chrome.storage.local.set(toggleAccessibilityON);
-
+    // ==== Save to chrome storage
+    savePreferences("cookiesAwayUserStyle", colorAccessibility);
+    savePreferences("cookiesAwayToggleAccessibility", true);
 }
 
 // ==== Function to set value of custom Text and Background
+// == Arguments > String, hexadecimal format (#ff00ff)
 function setColorValueOfCustom(textColorValue, backgroundColorValue) {
     customText.value = textColorValue;
     customBackground.value = backgroundColorValue;
+}
+
+// ==== Save into chrome storage local
+// == category > STRING, key under the value is saved
+// == value > any type
+async function savePreferences(category, value) {
+    let save = {
+        [category]: value
+    }
+    chrome.storage.local.set(save);
 }

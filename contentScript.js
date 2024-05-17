@@ -79,7 +79,7 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
         detectPaywall();
 
         // ==== Debugger call
-        // chrome.storage.local.get().then((data) => console.log(data));
+        chrome.storage.local.get().then((data) => console.log(data));
 
     }, 600);// delay (en millisecondes)
 
