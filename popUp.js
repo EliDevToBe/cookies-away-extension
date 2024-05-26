@@ -1,4 +1,4 @@
-// Récupérer les interactions utilisateur avec addEventListener
+// Récupérer les interactions utilisateur·ice avec addEventListener
 const btnCustom1 = document.querySelector("#btnCustom1");
 const btnCustom2 = document.querySelector("#btnCustom2");
 const customText = document.querySelector("#customText");
@@ -11,8 +11,8 @@ let colorAccessibility = "color:#FF6BE4 !important;background-color:#000000 !imp
 
 
 // ============== EVENTS sur les bouttons ==============
+
 btnCustom1.addEventListener("click", async () => {
-    // console.log("Bouton popup clicked")
 
     let size = `font-size:${parseInt(customSize.value)}px !important;`
 
@@ -26,8 +26,11 @@ btnCustom1.addEventListener("click", async () => {
     });
     getCustomStyle();
 })
+/* Permet d'appliquer le style prédéfini 1 sur le bouton de la popup, en passant 
+au-dessus du style du site, sinon, applique le style défini par l'utilisateur·ice.
+*/
+
 btnCustom2.addEventListener("click", async () => {
-    // console.log("Bouton popup clicked")
 
     let size = `font-size:${parseInt(customSize.value)}px !important;`
 
@@ -42,41 +45,55 @@ btnCustom2.addEventListener("click", async () => {
     });
     getCustomStyle();
 })
+/* Même logique que pour le style 1 mais pour le style .
+*/
 
 // =============== EVENT SUR CUSTOM SETTINGS ==================
-// ==== Event sur color text
+
 customText.addEventListener("input", async () => {
 
     let customStyle = getCustomStyle();
     messageToContentScript(customStyle);
 })
-// ==== Event sur background color
+/* Permet de vérifier si l'utilisateur·ice a modifié la couleur du texte du bouton 
+refuser les cookies.
+*/
+
 customBackground.addEventListener("input", async () => {
 
     let customStyle = getCustomStyle();
     messageToContentScript(customStyle);
 })
-// ==== Event sur Font-Size
+/* Permet de vérifier si l'utilisateur·ice a modifié la couleur de fond du bouton 
+refuser les cookies.
+*/
+
 customSize.addEventListener("input", async () => {
 
     let customStyle = getCustomStyle();
     messageToContentScript(customStyle);
 })
-// ==== Event sur le custom input Text
+/* Permet de vérifier si l'utilisateur·ice a modifié la taille de la police du bouton 
+refuser les cookies.
+*/
+
 customInput.addEventListener("input", async (event) => {
     event.preventDefault();
 
     let textFromUserInput = getCustomInput();
     messageToContentScript(textFromUserInput);
 })
-// ==== Event sur le toggle accessibilité
+/* Permet de vérifier si l'utilisateur·ice a personnalisé le texte du bouton 
+refuser les cookies.
+*/
+
 toggleAccessibility.addEventListener("change", async () => {
-    // Si la case est cochée
+
     if (toggleAccessibility.hasAttribute("checked")) {
 
         boxUnchecked();
 
-    } else { // Si elle est décochée
+    } else {
         boxChecked();
         setInitialState();
 
@@ -86,16 +103,22 @@ toggleAccessibility.addEventListener("change", async () => {
         });
     }
 })
+/* Permet de gérér le bouton accessibilité. Si le bouton est coché (OFF) alors 
+l'utilisateur·ice pourra choisir de personnaliser son bouton refuser les cookies. 
+Si le bouton est décoché (ON) alors les paramètres accessibilité par défaut seront activés.
+*/
+
 // ========================= END EVENTS ====================
 
 
-// Taken from API doc
 async function getCurrentTab() {
     let queryOptions = { active: true, currentWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab;
 }
+/* Permet d'agir sur l'onglet actif.
+*/
 
 async function messageToContentScript(text, callback) {
 
@@ -105,9 +128,11 @@ async function messageToContentScript(text, callback) {
 
     chrome.tabs.sendMessage(tabId, message, callback)
 }
+/* Permet de communiquer avec l'onglet actif.
+*/
 
-// Return un objet pour la réponse {type: , content: }
-// Objet necessaire pour les messages
+//-----------------------------------------------------------------------------------
+
 function getCustomStyle() {
 
     let textStyle = `color:${customText.value} !important;`
@@ -116,17 +141,20 @@ function getCustomStyle() {
     let outline = `border:3px solid ${customText.value} !important;`
     let finalStyle = textStyle + background + size + outline + "border-radius:100px !important;" + `min-height:${parseInt(customSize.value) / 2}px !important;`
 
-    // == Objet pour le stocker dans le Storage.local
     let cookiesAway = { cookiesAwayUserStyle: finalStyle }
 
-    // Sauvegarde dans le storage local
     chrome.storage.local.set(cookiesAway);
     // chrome.storage.local.get().then((data) => console.log(data))
 
     return { type: "style", content: finalStyle }
 }
+/* La fonction getCustomStyle permet de récupérer les choix de style de l'utilisateur·ice sur
+son bouton refuser les cookies. Ses choix sont sauvegardés dans un objet créé pour ça.
+*/
 
-// ==== Allows us to take user input from input-box
+//-----------------------------------------------------------------------------------
+
+
 function getCustomInput() {
     let input = customInput.value.trim();
 
@@ -136,8 +164,13 @@ function getCustomInput() {
 
     return { type: "input", content: input }
 }
+/* La fonction getCustomInput permet de récupérer la valeur rentrée par l'utilisateur·ice 
+pour nommer son bouton refuser les cookies.
+*/
 
-// ===== Permet de mettre les valeurs initiales de nos parametres
+//-----------------------------------------------------------------------------------
+
+
 async function setInitialState() {
 
     let localData = await chrome.storage.local.get();
@@ -172,9 +205,15 @@ async function setInitialState() {
         customBackground.value = "#000000";
     }
 }
+/* La fonction setInitialState permet de rebasculer sur le style par défaut du bouton refuser
+les cookies.
+*/
+
 setInitialState();
 
-// ===== Fonctions des états de la checkbox accessibilité =====
+//-----------------------------------------------------------------------------------
+
+
 async function boxUnchecked() {
     toggleAccessibility.removeAttribute("checked");
 
@@ -193,6 +232,13 @@ async function boxUnchecked() {
     let toggleAccessibilityOFF = { cookiesAwayToggleAccessibility: false };
     chrome.storage.local.set(toggleAccessibilityOFF);
 }
+/* La fonction boxUnchecked du bouton accessibilité désactive le style par défaut du bouton 
+refuser les cookies. Cela permet à l'utilisateur·ice de personnaliser son bouton.
+*/
+
+//-----------------------------------------------------------------------------------
+
+
 async function boxChecked() {
     toggleAccessibility.setAttribute("checked", "");
 
@@ -215,3 +261,6 @@ async function boxChecked() {
     chrome.storage.local.set(toggleAccessibilityON);
 
 }
+/* La fonction boxChecked du bouton accessibilité active le style par défaut du bouton 
+refuser les cookies.
+*/ 

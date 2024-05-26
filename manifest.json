@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "CookiesAway",
-    "description": "modifie l'apparence des cookies Dark Patterns",
+    "description": "Personnalise la bannière à cookies pour mettre en évidence le bouton refuser les cookies",
     "version": "1.0",
     "permissions": [
         "scripting",

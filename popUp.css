@@ -54,8 +54,7 @@ button {
     font-weight: bold;
 }
 
-/* Styles prédéfinis */
-/* En inline, necessaire pour notre extension */
+/* Les styles prédéfinis sont inline, c'est nécessaire pour notre extension */
 
 
 /* input type Color */
@@ -76,7 +75,6 @@ input {
 }
 
 #containerCustomStyle {
-    /* text-align: center; */
     margin-top: 15px;
     margin-bottom: 15px;
     padding-top: 5px;
@@ -119,11 +117,6 @@ input {
     text-align: center;
 }
 
-/* Toggle */
-/* * {
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-} */
 
 *:focus {
     outline: none;
@@ -158,16 +151,6 @@ input {
     border-radius: 4px;
 }
 
-/* .button-cover:before {
-    counter-increment: button-counter;
-    content: counter(button-counter);
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: #d7e3e3;
-    font-size: 12px;
-    padding: 5px;
-} */
 
 .button-cover,
 .knobs,
@@ -268,14 +251,10 @@ input {
 }
 
 .hidden-text {
-    /* visibility: hidden; */
     display: none;
-
-    /*transition: all ease-in-out 2s;*/
 }
 
 .info:hover+.hidden-text {
     visibility: visible;
     display: contents;
-    /*transition: all ease-in-out 2s;*/
 }
