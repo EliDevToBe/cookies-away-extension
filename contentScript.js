@@ -1,4 +1,3 @@
-// console.log("Hello!");
 const defaultStyle = "color:#FF6BE4 !important;background-color:black !important;border:3px solid #FF6BE4 !important;font-size: 50px !important;border-radius: 100px !important;";
 //chrome.storage.local.clear(); // <-- - - EASY ERASE STORAGE
 
@@ -10,6 +9,10 @@ function cookiesAway(selector, style = defaultStyle) {
     selector.setAttribute("class", "");
     selector.setAttribute("class", "cookiesAwayWithClass");
 }
+/* La fonction cookiesAway(peut-être la renommer refuseCookiesButtonStyle ?) permet d'attribuer 
+un style prédéfini sur le bouton refuser les cookies afin de le rendre plus visible.
+*/
+
 //----------------------------------------------------------------------------------
 
 const findSelector = (callback, newStylePassing) => {
@@ -19,7 +22,6 @@ const findSelector = (callback, newStylePassing) => {
     let oneTrustClass = document.querySelector(".onetrust-reject-all-handler");
     let oneTrustClass2 = document.querySelector(".onetrust-close-btn-handler");
     let didomiClass = document.querySelector(".didomi-continue-without-agreeing");
-    // let didomiPaywall = document.querySelector(".didomi-popup-open");
 
     let arraySelector = [cookiesAwayWithClass, oneTrustId, oneTrustClass, didomiClass, oneTrustClass2];
 
@@ -27,7 +29,7 @@ const findSelector = (callback, newStylePassing) => {
 
         const element = arraySelector[i];
 
-        try { // Instruction: Ici on essaie tout ce qu'on veut faire fonctionner. Si erreur, alors on bascule dans catch(error) sans stopper tout le code.
+        try {
             callback(element, newStylePassing);
             // messageToPopupScript({ type: "contentUpdate", content: newStylePassing });
         } catch (error) {
@@ -38,6 +40,12 @@ const findSelector = (callback, newStylePassing) => {
 
     }
 };
+/* La fonction findSelector (peut-être la renommer findCookiesButtonName ?) permet de 
+définir quels éléments doivent être identifiés par la fonction pour modifier le style 
+du bouton refuser les cookies.
+*/
+
+//----------------------------------------------------------------------------------
 
 const openPopup = () => {
 
@@ -45,23 +53,33 @@ const openPopup = () => {
 
     if (paywallFinder) {
 
-        alert("Attention, ceci est un faux choix, tu devras accepter les cookies, ou payer !");
+        alert("Attention, ce site ne te laisse pas le choix, tu devras accepter les cookies, ou payer!");
 
     }
 
 };
+/* La fonction openPopup sert à gérer les sites ne permettant pas de refuser 
+les cookies (soit accepter les cookies, soit obligation de s'abonner pour accéder au site).
+*/
 
-window.onload = function () {//Attend que la page soit chargée pour déclencher le script
+//----------------------------------------------------------------------------------
 
-    setTimeout(async () => {//Retarde l'execution du code 
-        // Save le storage-local
+function updateInnerText(selector, text) {
+    selector.innerText = text
+}
+/* La fonction updateInnerText permet d'appliquer des préférences de style sur le bouton 
+refuser les cookies.
+*/
+
+//----------------------------------------------------------------------------------
+
+window.onload = function () {
+
+    setTimeout(async () => {
         let localData = await chrome.storage.local.get()
         let existingLocalStyle = await localData.cookiesAwayUserStyle
         let existingLocalText = await localData.cookiesAwayUserText
 
-        // Ici nous permettra de verifier la présence d'un style local
-        // == S'il existe, applique cookiesAway avec le Style du user
-        // == Sinon, applique cookiesAway avec le style par défaut
         if (existingLocalStyle) {
             findSelector(cookiesAway, existingLocalStyle)
         } else {
@@ -75,17 +93,29 @@ window.onload = function () {//Attend que la page soit chargée pour déclencher
         // ==== Debugger call
         // chrome.storage.local.get().then((data) => console.log(data));
 
-    }, 600);// delay (en millisecondes)
+    }, 600);
 
 }
+/* La fonction (lui donner un nom, peut-être chosenStyle ?) permet de prendre
+en compte les préférences utilisateur·ice. Si pas de préférences,le style par défaut 
+est attribué au bouton refuser les cookies. Cette fonction ne se déclenche qu'une fois la page 
+chargée (+ ajout d'un setTimeout dans le cas d'un site très lent à l'affichage).
+*/
 
+/* NOTE : Cette fonction fait deux choses : prendre en compte les pref et gérer l'appel des
+fonctions précédentes (il me semble). Est-ce qu'on ne devrait pas créer deux fonctions
+distinctes ?
+*/
+
+//----------------------------------------------------------------------------------
 
 // Detects any event
-// chrome.runtime.onMessage.addListener(
-//     console.log("onMessage event has been fired ! ")
-// )
+/* chrome.runtime.onMessage.addListener(
+ console.log("onMessage event has been fired ! ")
+)
+*/
 
-// Detect a specific event message
+
 chrome.runtime.onMessage.addListener((message, sender) => {
     // console.log("event detection on ContentScript");
 
@@ -101,9 +131,12 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 
     // console.log(message)
 })
+/* Permet d'écouter un message spécifique en provenance de la popup pour prendre en compte
+les préférences utilisateur·ice.
+*/
 
-// ==== Fonction message pour le popup, s'envoie mais n'arrive pas
-// == à le récupérer de l'autre côté
+//----------------------------------------------------------------------------------
+
 async function messageToPopupScript(content) {
     let message = {
         type: "contentUpdate",
@@ -113,8 +146,7 @@ async function messageToPopupScript(content) {
     chrome.runtime.sendMessage(message);
     // console.log("message sent to popup")
 }
+/* La fonction messageToPopupScript sert à communiquer avec la popup.
+*/
 
-// ==== Fonction pour modifier le contenu d'un selecteur
-function updateInnerText(selector, text) {
-    selector.innerText = text
-}
+
