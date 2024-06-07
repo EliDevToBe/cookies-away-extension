@@ -1,15 +1,15 @@
 // Récupérer les interactions utilisateur avec addEventListener
 const btnCustom1 = document.querySelector("#btnCustom1");
 const btnCustom2 = document.querySelector("#btnCustom2");
-const customText = document.querySelector("#customText");
+const customColorText = document.querySelector("#customText");
 const customBackground = document.querySelector("#customBackground");
 const customSize = document.querySelector("#customSize");
 const customInput = document.querySelector("#customInput");
 const toggleAccessibility = document.querySelector("#toggleAccessibility");
 
 let colorAccessibility = "color:#FF6BE4 !important;background-color:#000000 !important;font-size: 50px !important;border:3px solid #FF6BE4 !important;border-radius: 100px !important;"
-let predefStylePrimary = "#FFFFFF";
-let predefStyleSecondary = "#39a3e4";
+let predefColorPrimary = "#FFFFFF";
+let predefColorSecondary = "#39a3e4";
 
 // ============== EVENTS sur les bouttons ==============
 btnCustom1.addEventListener("click", async () => {
@@ -18,10 +18,9 @@ btnCustom1.addEventListener("click", async () => {
     let size = `font-size:${parseInt(customSize.value)}px !important;`
     let btnStyle = btnCustom1.attributes.style.nodeValue + size;
 
-    setColorValueOfCustom(predefStylePrimary, predefStyleSecondary)
+    setColorValueOfCustom(predefColorPrimary, predefColorSecondary)
 
     messageToContentScript("style", btnStyle);
-    savePreferences("test", "this is my test");
 })
 btnCustom2.addEventListener("click", async () => {
     // console.log("Bouton popup clicked")
@@ -29,14 +28,14 @@ btnCustom2.addEventListener("click", async () => {
     let size = `font-size:${parseInt(customSize.value)}px !important;`
     let btnStyle = btnCustom2.attributes.style.nodeValue + size;
 
-    setColorValueOfCustom(predefStyleSecondary, predefStylePrimary)
+    setColorValueOfCustom(predefColorSecondary, predefColorPrimary)
 
     messageToContentScript("style", btnStyle);
 })
 
 // =============== EVENT SUR CUSTOM SETTINGS ==================
 // ==== Array of each possible customization selector
-const customHTMLSelectors = [customText, customBackground, customSize];
+const customHTMLSelectors = [customColorText, customBackground, customSize];
 
 for (selector of customHTMLSelectors) {
     // == Set an event listener on each customization selector
@@ -66,7 +65,7 @@ toggleAccessibility.addEventListener("change", async () => {
     } else { // Si elle est décochée
         boxChecking();
         // Remet tout bien les valeurs des customs settings
-        setInitialState();
+        applyPreferencesOnInterface();
 
         messageToContentScript("style", colorAccessibility);
     }
@@ -75,7 +74,7 @@ toggleAccessibility.addEventListener("change", async () => {
 
 
 // Taken from API doc
-async function getCurrentTab() {
+async function getCurrentTabObject() {
     let queryOptions = { active: true, currentWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions);
@@ -84,7 +83,7 @@ async function getCurrentTab() {
 
 async function messageToContentScript(typeOfMessage, messageContent, callback) {
 
-    let data = await getCurrentTab();
+    let data = await getCurrentTabObject();
     let tabId = await data.id;
     let message = { type: typeOfMessage, content: messageContent };
 
@@ -92,13 +91,13 @@ async function messageToContentScript(typeOfMessage, messageContent, callback) {
 }
 
 // Return le style final à appliquer
-// Objet necessaire pour les messages
+// finalStyle => String
 function getFinalCustomStyle() {
 
-    let textStyle = `color:${customText.value} !important;`
+    let textStyle = `color:${customColorText.value} !important;`
     let background = `background-color:${customBackground.value} !important;`
     let size = `font-size:${parseInt(customSize.value)}px !important;`
-    let outline = `border:3px solid ${customText.value} !important;`
+    let outline = `border:3px solid ${customColorText.value} !important;`
 
     let finalStyle = textStyle
         + background
@@ -124,7 +123,7 @@ function getCustomInput() {
 }
 
 // ===== Permet de mettre les valeurs initiales de nos parametres
-async function setInitialState() {
+async function applyPreferencesOnInterface() {
 
     let userData = await chrome.storage.local.get();
     let existingUserStyle = await userData.cookiesAwayUserStyle;
@@ -148,7 +147,7 @@ async function setInitialState() {
         let nearFontSize = text.split("font-size:");
         let userSize = nearFontSize[1].slice(0, 4);
 
-        customText.value = textColorValue;
+        customColorText.value = textColorValue;
         customBackground.value = backgroundColorValue;
         customSize.value = parseInt(userSize);
 
@@ -158,19 +157,19 @@ async function setInitialState() {
         setColorValueOfCustom("#FF6Be4", "#000000")
     }
 }
-setInitialState();
+applyPreferencesOnInterface();
 
 // ===== Fonctions des états de la checkbox accessibilité =====
 async function boxUnchecking() {
     toggleAccessibility.removeAttribute("checked");
 
-    customText.removeAttribute("disabled");
+    customColorText.removeAttribute("disabled");
     customBackground.removeAttribute("disabled");
     customSize.removeAttribute("disabled");
     btnCustom1.removeAttribute("disabled");
     btnCustom2.removeAttribute("disabled");
 
-    customText.removeAttribute("title");
+    customColorText.removeAttribute("title");
     customBackground.removeAttribute("title");
     customSize.removeAttribute("title");
     btnCustom1.removeAttribute("title");
@@ -183,13 +182,13 @@ async function boxUnchecking() {
 async function boxChecking() {
     toggleAccessibility.setAttribute("checked", "");
 
-    customText.setAttribute("disabled", "");
+    customColorText.setAttribute("disabled", "");
     customBackground.setAttribute("disabled", "");
     customSize.setAttribute("disabled", "");
     btnCustom1.setAttribute("disabled", "");
     btnCustom2.setAttribute("disabled", "");
 
-    customText.setAttribute("title", "/!\\ Option d'accessibilité activée");
+    customColorText.setAttribute("title", "/!\\ Option d'accessibilité activée");
     customBackground.setAttribute("title", "/!\\ Option d'accessibilité activée");
     customSize.setAttribute("title", "/!\\ Option d'accessibilité activée");
     btnCustom1.setAttribute("title", "/!\\ Option d'accessibilité activée")
@@ -203,7 +202,7 @@ async function boxChecking() {
 // ==== Function to set value of custom Text and Background
 // == Arguments > String, hexadecimal format (#ff00ff)
 function setColorValueOfCustom(textColorValue, backgroundColorValue) {
-    customText.value = textColorValue;
+    customColorText.value = textColorValue;
     customBackground.value = backgroundColorValue;
 }
 

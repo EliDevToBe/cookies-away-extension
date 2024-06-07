@@ -57,6 +57,7 @@ const detectPaywall = () => {
 
 };
 
+// ==== ---- A CHECK SI COQUILLE NECESSAIRE OU DIRECT setTimeout ---- A TESTER
 window.onload = function () {//Attend que la page soit chargée pour déclencher le script
 
     setTimeout(async () => {//Retarde l'execution du code 
