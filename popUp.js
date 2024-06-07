@@ -45,7 +45,7 @@ btnCustom2.addEventListener("click", async () => {
     });
     getCustomStyle();
 })
-/* Même logique que pour le style 1 mais pour le style .
+/* Même logique que pour le style 1 mais pour le style 2.
 */
 
 // =============== EVENT SUR CUSTOM SETTINGS ==================
@@ -205,7 +205,8 @@ async function setInitialState() {
         customBackground.value = "#000000";
     }
 }
-/* La fonction setInitialState permet de rebasculer sur le style par défaut du bouton refuser
+/* La fonction setInitialState permet de garder les pref utilisateur, et si pas,
+bascule sur le style par défaut du bouton refuser
 les cookies.
 */
 
@@ -232,8 +233,8 @@ async function boxUnchecked() {
     let toggleAccessibilityOFF = { cookiesAwayToggleAccessibility: false };
     chrome.storage.local.set(toggleAccessibilityOFF);
 }
-/* La fonction boxUnchecked du bouton accessibilité désactive le style par défaut du bouton 
-refuser les cookies. Cela permet à l'utilisateur·ice de personnaliser son bouton.
+/* La fonction boxUnchecked du bouton accessibilité bloque le style du bouton 
+refuser les cookies sur l'accessibilité.
 */
 
 //-----------------------------------------------------------------------------------
@@ -261,6 +262,6 @@ async function boxChecked() {
     chrome.storage.local.set(toggleAccessibilityON);
 
 }
-/* La fonction boxChecked du bouton accessibilité active le style par défaut du bouton 
-refuser les cookies.
+/* La fonction boxChecked du bouton accessibilité permet le style personnalisable du bouton 
+refuser les cookies. Ne force pas le style accessibilité
 */ 

@@ -96,15 +96,10 @@ window.onload = function () {
     }, 600);
 
 }
-/* La fonction (lui donner un nom, peut-être chosenStyle ?) permet de prendre
+/* La fonction anonyme [pas l'async] (lui donner un nom, peut-être chosenStyle ?) permet de prendre
 en compte les préférences utilisateur·ice. Si pas de préférences,le style par défaut 
 est attribué au bouton refuser les cookies. Cette fonction ne se déclenche qu'une fois la page 
 chargée (+ ajout d'un setTimeout dans le cas d'un site très lent à l'affichage).
-*/
-
-/* NOTE : Cette fonction fait deux choses : prendre en compte les pref et gérer l'appel des
-fonctions précédentes (il me semble). Est-ce qu'on ne devrait pas créer deux fonctions
-distinctes ?
 */
 
 //----------------------------------------------------------------------------------
@@ -132,11 +127,13 @@ chrome.runtime.onMessage.addListener((message, sender) => {
     // console.log(message)
 })
 /* Permet d'écouter un message spécifique en provenance de la popup pour prendre en compte
-les préférences utilisateur·ice.
+les préférences utilisateur·ice. L'event se déclenche dans toute l'extension avec un message vide
+puis rempli avec {type: xxx, content: xxx}
 */
 
 //----------------------------------------------------------------------------------
 
+// ==== Fonctionne mais pas receptionné dans le popupJs
 async function messageToPopupScript(content) {
     let message = {
         type: "contentUpdate",
