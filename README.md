@@ -1,6 +1,6 @@
 # 🍪 Cookies Away 🍪
 
-Projet initalement collectif au sein de la formation à Ada Tech School, nous avons décider de le poursuivre.  
+Projet initalement collectif au sein de la formation à Ada Tech School, nous avons décidé de le poursuivre.  
 L'équipe : [Stanz-ie](https://github.com/Stanz-ie) & [Mialy333](https://github.com/Mialy333) & [EliDevToBe](https://github.com/EliDevToBe)
 
 ## Késako _Cookies Away_ ?
