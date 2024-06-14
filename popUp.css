@@ -3,6 +3,7 @@
     font-family: Arial, Helvetica, sans-serif;
     border-color: #8AAAE5;
     border-radius: 100px;
+    text-align: center;
 }
 
 #body {
@@ -30,17 +31,10 @@ button {
     cursor: pointer;
 }
 
-.popUp {
-    text-align: center;
-}
-
 .hidden-text {
     text-align: justify;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.info {
-    text-align: center;
+    display: none;
 }
 
 #body h2 {
@@ -48,11 +42,6 @@ button {
     font-weight: bold;
 }
 
-.access {
-
-    text-align: center;
-    font-weight: bold;
-}
 
 /* Les styles prédéfinis sont inline, c'est nécessaire pour notre extension */
 
@@ -116,7 +105,6 @@ input {
 #customInputContainer {
     text-align: center;
 }
-
 
 *:focus {
     outline: none;
@@ -243,15 +231,12 @@ input {
     transition: background-color ease-in 250ms;
     height: 5vh;
     justify-content: center;
+    text-align: center;
 }
 
 .info:hover {
     background-color: #ebf7fc;
     transition: all ease-out 250ms;
-}
-
-.hidden-text {
-    display: none;
 }
 
 .info:hover+.hidden-text {
