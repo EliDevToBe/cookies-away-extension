@@ -19,7 +19,7 @@ C'est une extension de navigateur (Chrome pour le moment 😉) qui permet de **m
 
 ## Goals
 
-Elle sera bientôt disponible sur le Chrome Store, avec une compatibilité aux sites accrue.  
+Extension sera bientôt disponible sur le Chrome Store, avec une compatibilité aux sites accrue.  
 Puis nous l'étendrons pour d'autres navigateurs !
 
 
